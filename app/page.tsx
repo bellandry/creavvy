@@ -4,6 +4,7 @@ import Features from "../components/marketing/Features";
 import Footer from "../components/marketing/Footer";
 import Header from "../components/marketing/Header";
 import Hero from "../components/marketing/Hero";
+import Pricing from "../components/marketing/Pricing";
 import Testimonials from "../components/marketing/Testimonials";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
           <Hero />
           <Features />
           <Testimonials />
+          <Pricing />
           <FAQ />
           <CTA />
         </main>
