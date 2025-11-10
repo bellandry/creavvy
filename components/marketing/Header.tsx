@@ -1,5 +1,6 @@
 "use client";
 import Lenis from "lenis";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const Header = () => {
@@ -44,6 +45,18 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      lenisRef.current?.scrollTo(element, {
+        offset: -80, // Adjust for header height
+        duration: 1.5,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    }
+    closeMenu();
+  };
+
   return (
     <>
       <header className="flex items-center gap-4 justify-between whitespace-nowrap border-b border-solid border-white/10 px-0 py-5 sm:px-6">
@@ -64,28 +77,37 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-9 lg:flex">
-          <a
+          <Link
+            href={"/#fonctionnalites"}
             className="text-white/80 hover:text-white transition-colors text-sm font-medium leading-normal"
-            href="#"
+            onClick={() => scrollToSection("fonctionnalites")}
           >
             Fonctionnalités
-          </a>
-          <a
+          </Link>
+          <Link
+            href={"/#tarifs"}
             className="text-white/80 hover:text-white transition-colors text-sm font-medium leading-normal"
-            href="#"
+            onClick={() => scrollToSection("tarifs")}
           >
             Tarifs
-          </a>
-          <a
+          </Link>
+          <Link
+            href={"/#faq"}
             className="text-white/80 hover:text-white transition-colors text-sm font-medium leading-normal"
-            href="#"
+            onClick={() => scrollToSection("faq")}
           >
-            Blog
-          </a>
+            FAQ
+          </Link>
+          <Link
+            href={"/contact"}
+            className="text-white/80 hover:text-white transition-colors text-sm font-medium leading-normal"
+          >
+            Contact
+          </Link>
         </div>
 
         <div className="flex flex-1 justify-end gap-2">
-          <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex">
+          <button className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex">
             <span className="truncate">Commencer à créer</span>
           </button>
 
@@ -147,27 +169,24 @@ const Header = () => {
           </div>
 
           <div className="flex flex-col items-center justify-center flex-1 gap-8 p-6">
-            <a
+            <button
               className="text-white/80 hover:text-white transition-colors text-xl font-medium leading-normal"
-              href="#"
-              onClick={closeMenu}
+              onClick={() => scrollToSection("fonctionnalites")}
             >
               Fonctionnalités
-            </a>
-            <a
+            </button>
+            <button
               className="text-white/80 hover:text-white transition-colors text-xl font-medium leading-normal"
-              href="#"
-              onClick={closeMenu}
+              onClick={() => scrollToSection("tarifs")}
             >
               Tarifs
-            </a>
-            <a
+            </button>
+            <button
               className="text-white/80 hover:text-white transition-colors text-xl font-medium leading-normal"
-              href="#"
-              onClick={closeMenu}
+              onClick={() => scrollToSection("contact")}
             >
-              Blog
-            </a>
+              Contact
+            </button>
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
               <span className="truncate">Commencer à créer</span>
             </button>

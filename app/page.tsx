@@ -16,10 +16,16 @@ export default function Home() {
         </div>
         <main className="w-full max-w-6xl px-4 lg:px-8 py-16 sm:py-24 lg:py-32 flex flex-col gap-24 sm:gap-32 lg:gap-40">
           <Hero />
-          <Features />
+          <div id="fonctionnalites">
+            <Features />
+          </div>
           <Testimonials />
-          <Pricing />
-          <FAQ />
+          <div id="tarifs">
+            <Pricing />
+          </div>
+          <div id="faq">
+            <FAQ />
+          </div>
           <CTA />
         </main>
         <Footer />
