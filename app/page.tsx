@@ -26,9 +26,7 @@ export default function Home() {
               <FAQ />
             </div>
             <CTA />
-            <div id="contact">
-              {/* Contact section will be added later */}
-            </div>
+            <div id="contact">{/* Contact section will be added later */}</div>
           </main>
           <Footer />
         </div>

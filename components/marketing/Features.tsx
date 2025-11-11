@@ -75,7 +75,7 @@ const Features = () => {
         </div>
         <div
           ref={setFeatureRef(1)}
-          className="flex flex-col gap-4 text-left p-6 bg-white/5 border border-white/10 rounded-xl opacity-0 transition-all duration-700 ease-out hover:bg-white/[0.08] hover:border-white/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+          className="flex flex-col gap-4 text-left p-6 bg-white/5 border border-white/10 rounded-xl opacity-0 transition-all duration-700 ease-out hover:bg-white/8 hover:border-white/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
         >
           <h3 className="text-white text-xl font-bold">Import facile</h3>
           <p className="text-white/70 text-base font-normal">
@@ -92,7 +92,7 @@ const Features = () => {
         </div>
         <div
           ref={setFeatureRef(2)}
-          className="flex flex-col gap-4 text-left p-6 bg-white/5 border border-white/10 rounded-xl opacity-0 transition-all duration-700 ease-out hover:bg-white/[0.08] hover:border-white/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+          className="flex flex-col gap-4 text-left p-6 bg-white/5 border border-white/10 rounded-xl opacity-0 transition-all duration-700 ease-out hover:bg-white/8 hover:border-white/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
         >
           <h3 className="text-white text-xl font-bold">
             Templates prêts à l&apos;emploi
@@ -111,7 +111,7 @@ const Features = () => {
         </div>
         <div
           ref={setFeatureRef(3)}
-          className="md:col-span-2 flex flex-col gap-4 text-left p-6 bg-white/5 border border-white/10 rounded-xl opacity-0 transition-all duration-700 ease-out hover:bg-white/[0.08] hover:border-white/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+          className="md:col-span-2 flex flex-col gap-4 text-left p-6 bg-white/5 border border-white/10 rounded-xl opacity-0 transition-all duration-700 ease-out hover:bg-white/8 hover:border-white/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
         >
           <h3 className="text-white text-xl font-bold">Export haute qualité</h3>
           <p className="text-white/70 text-base font-normal">

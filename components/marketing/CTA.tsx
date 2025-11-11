@@ -2,7 +2,7 @@
 
 const CTA = () => {
   return (
-    <section className="flex flex-col items-center justify-center gap-6 text-center bg-white/[0.05] border border-white/10 rounded-xl p-8 sm:p-12 lg:p-16">
+    <section className="flex flex-col items-center justify-center gap-6 text-center bg-white/5 border border-white/10 rounded-xl p-8 sm:p-12 lg:p-16">
       <div className="flex flex-col gap-2 items-center">
         <h2 className="text-white tracking-tight text-3xl sm:text-4xl font-bold leading-tight max-w-xl">
           Prêt à faire briller votre contenu ?
