@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -14,7 +14,7 @@ export default function SignInPage() {
 
     const formData = new FormData(e.currentTarget);
 
-    const res = await signIn.email({
+    const res = await authClient.signIn.email({
       email: formData.get("email") as string,
       password: formData.get("password") as string,
     });
@@ -23,6 +23,22 @@ export default function SignInPage() {
       setError(res.error.message || "Something went wrong.");
     } else {
       router.push("/dashboard");
+    }
+  }
+
+  async function magicSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const res = await authClient.signIn.magicLink({
+      email: formData.get("email") as string,
+      callbackURL: "/dashboard",
+      newUserCallbackURL: "/wizard",
+      errorCallbackURL: "/error",
+    });
+    if (res.error) {
+      setError(res.error.message || "Une erreur est survenur");
     }
   }
 
@@ -52,6 +68,21 @@ export default function SignInPage() {
           className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
         >
           Sign In
+        </button>
+      </form>
+      <form onSubmit={magicSubmit} className="space-y-4 mt-8">
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+          className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
+        />
+        <button
+          type="submit"
+          className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
+        >
+          Magic connexion
         </button>
       </form>
     </main>
