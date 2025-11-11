@@ -117,7 +117,7 @@ const Header = () => {
         }`}
       >
         <div className="flex items-center gap-9 justify-between whitespace-nowrap px-4 py-3 sm:px-6">
-          <div className="flex items-center gap-4">
+          <Link href="/" className="flex items-center gap-4">
             <div className="size-6 text-primary">
               <svg
                 fill="currentColor"
@@ -130,7 +130,7 @@ const Header = () => {
             <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">
               Creavvy
             </h2>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-9 lg:flex">
