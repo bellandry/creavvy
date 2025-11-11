@@ -1,12 +1,23 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import Lenis from "lenis";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
 
 const Header = () => {
   const lenisRef = useRef<Lenis | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  // const router = useRouter();
+  const { data: session } = authClient.useSession();
+
+  // useEffect(() => {
+  //   if (!isPending && !session?.user) {
+  //     router.push("/sign-in");
+  //   }
+  // }, [isPending, session, router]);
 
   useEffect(() => {
     // Initialize Lenis
@@ -66,6 +77,36 @@ const Header = () => {
     closeMenu();
   };
 
+  // if (isPending || !session?.user)
+  //   return <p className="text-center mt-8 text-white">Loading...</p>;
+  // if (!session?.user)
+  //   return <p className="text-center mt-8 text-white">Redirecting...</p>;
+
+  let btn = (
+    <Link
+      href={"/sign-in"}
+      className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex"
+    >
+      <span className="truncate">Commencer à créer</span>
+    </Link>
+  );
+  if (session) {
+    btn = (
+      <div className="flex gap-4 items-center">
+        <Link
+          href={"/dashboard"}
+          className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex"
+        >
+          <span className="truncate">Dashboard</span>
+        </Link>
+        <Avatar className="size-10">
+          <AvatarImage src={session.user.image!} alt="User avatar" />
+          <AvatarFallback>{session.user.name}</AvatarFallback>
+        </Avatar>
+      </div>
+    );
+  }
+
   return (
     <>
       <header
@@ -123,9 +164,7 @@ const Header = () => {
           </div>
 
           <div className="flex justify-end gap-2">
-            <button className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex">
-              <span className="truncate">Commencer à créer</span>
-            </button>
+            {btn}
 
             {/* Mobile Menu Button */}
             <button
@@ -225,9 +264,9 @@ const Header = () => {
             >
               Contact
             </Link>
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
+            <Button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
               <span className="truncate">Commencer à créer</span>
-            </button>
+            </Button>
           </div>
         </div>
       </div>

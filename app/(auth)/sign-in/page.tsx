@@ -3,16 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
+import { toastManager } from "@/components/ui/toast";
 import { authClient } from "@/lib/auth-client";
-import { Github } from "lucide-react";
+import { ArrowLeft, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignInPage() {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<{ [key: string]: boolean }>({
     github: false,
     google: false,
@@ -20,8 +20,15 @@ export default function SignInPage() {
     email: false,
   });
 
+  const { data: session, isPending } = authClient.useSession();
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/dashboard");
+    }
+  }, [isPending, session, router]);
+
   async function connectSocial(provider: "github" | "google" | "discord") {
-    setError(null);
     setLoading((prev) => ({ ...prev, [provider]: true }));
 
     try {
@@ -33,7 +40,12 @@ export default function SignInPage() {
       });
 
       if (res.error) {
-        setError(res.error.message || "Erreur avec le provider " + provider);
+        toastManager.add({
+          type: "error",
+          title: "Erreur de connexion",
+          description:
+            res.error.message || "Erreur avec le provider " + provider,
+        });
       }
     } finally {
       setLoading((prev) => ({ ...prev, [provider]: false }));
@@ -42,7 +54,6 @@ export default function SignInPage() {
 
   async function magicSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setError(null);
     setLoading((prev) => ({ ...prev, email: true }));
 
     try {
@@ -57,7 +68,11 @@ export default function SignInPage() {
       });
 
       if (res.error) {
-        setError(res.error.message || "Une erreur est survenue");
+        toastManager.add({
+          type: "error",
+          title: "Une erreur est survenue",
+          description: res.error.message || "Une erreur est survenue",
+        });
       } else {
         // Redirect to check email page with the email as a parameter
         router.push(`/check-email?email=${encodeURIComponent(email)}`);
@@ -68,49 +83,22 @@ export default function SignInPage() {
   }
 
   return (
-    <div
-      className="relative flex h-auto min-h-screen w-full flex-col items-center justify-center overflow-x-hidden p-4 group/design-root"
-      style={{ fontFamily: 'Inter, "Noto Sans", sans-serif' }}
-    >
+    <div className="relative flex h-auto min-h-screen w-full flex-col items-center justify-center overflow-x-hidden p-4 group/design-root">
+      <Link href={"/"} className="fixed top-4 left-4 flex items-center gap-2">
+        <ArrowLeft className="size-4" />
+        Retour à l&apos;accueil
+      </Link>
       <div className="layout-container flex h-full w-full max-w-md flex-col items-center justify-center">
         <div className="flex w-full flex-col items-center gap-6 rounded-xl bg-white/5 p-8 shadow-2xl">
           {/* Logo and Heading */}
           <div className="flex w-full flex-col items-center gap-4 text-center">
-            <div
-              className="h-16 w-16"
-              data-alt="Snippet Studio logo, an abstract shape resembling a code snippet and a brush stroke."
-            >
+            <div className="size-16 text-primary">
               <svg
-                className="h-full w-full"
-                fill="none"
-                viewBox="0 0 64 64"
+                fill="currentColor"
+                viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M44 4H20C11.1634 4 4 11.1634 4 20V44C4 52.8366 11.1634 60 20 60H44C52.8366 60 60 52.8366 60 44V20C60 11.1634 52.8366 4 44 4Z"
-                  fill="#8c2bee"
-                ></path>
-                <path
-                  d="M24 24L18 30L24 36"
-                  stroke="white"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="3"
-                ></path>
-                <path
-                  d="M40 24L46 30L40 36"
-                  stroke="white"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="3"
-                ></path>
-                <path
-                  d="M34 18L30 42"
-                  stroke="#10B981"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="3"
-                ></path>
+                <path d="M8.7 3.31C9.17 3.12 9.7 3 10.25 3h3.5c.55 0 1.08.12 1.55.31l4.8 1.92c1.03.41 1.03 1.74 0 2.15l-4.8 1.92c-.47.19-1 .31-1.55.31h-3.5c-.55 0-1.08-.12-1.55-.31l-4.8-1.92c-1.03-.41-1.03-1.74 0-2.15l4.8-1.92ZM18.4 16.69c.47-.19.7-.72.7-1.25v-3.5c0-.53-.23-1.06-.7-1.25l-4.8-1.92c-1.03-.41-2.13.41-2.13 1.54v7.27c0 1.13 1.1 1.95 2.13 1.54l4.8-1.92ZM8.73 9.77c-.47.19-1.55.62-1.55 1.54v3.5c0 .53.23 1.06.7 1.25l4.8 1.92c1.03.41 2.13-.41 2.13-1.54v-7.27c0-1.13-1.1-1.95-2.13-1.54l-3.95 1.59Z"></path>
               </svg>
             </div>
             <p className="text-white text-3xl font-black leading-tight tracking-[-0.033em]">
@@ -189,12 +177,6 @@ export default function SignInPage() {
             onSubmit={magicSubmit}
             className="flex w-full flex-col items-stretch gap-4"
           >
-            {error && (
-              <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3">
-                <p className="text-destructive text-sm">{error}</p>
-              </div>
-            )}
-
             <label className="flex flex-col w-full">
               <Input
                 name="email"

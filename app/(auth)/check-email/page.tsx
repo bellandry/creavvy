@@ -1,6 +1,7 @@
 "use client";
 
 import { CheckEmail } from "@/components/CheckEmail";
+import { toastManager } from "@/components/ui/toast";
 import { authClient } from "@/lib/auth-client";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -11,7 +12,6 @@ export default function CheckEmailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
 
   // Get the email from search params or use a default
   const email = searchParams.get("email") || "votre adresse e-mail";
@@ -19,7 +19,6 @@ export default function CheckEmailPage() {
   const handleResend = async (newEmail: string) => {
     try {
       setError(null);
-      setSuccess(null);
 
       const res = await authClient.signIn.magicLink({
         email: newEmail,
@@ -32,15 +31,31 @@ export default function CheckEmailPage() {
         setError(
           res.error.message || "Une erreur est survenue lors de l'envoi du lien"
         );
+        toastManager.add({
+          type: "error",
+          title: "Erreur",
+          description:
+            res.error.message ||
+            "Une erreur est survenue lors de l'envoi du lien",
+        });
       } else {
-        setSuccess("Le lien a été renvoyé avec succès !");
+        toastManager.add({
+          type: "success",
+          title: "Lien envoyé",
+          description: "Le lien a été renvoyé avec succès !",
+        });
         // Update the URL with the new email
         const newParams = new URLSearchParams(searchParams.toString());
         newParams.set("email", newEmail);
         router.replace(`/check-email?${newParams.toString()}`);
       }
     } catch (err) {
-      setError("Une erreur inattendue est survenue");
+      console.log(err);
+      toastManager.add({
+        type: "error",
+        title: "Erreur",
+        description: "Une erreur inattendue est survenue",
+      });
     }
   };
 
@@ -65,12 +80,6 @@ export default function CheckEmailPage() {
         {error && (
           <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3">
             <p className="text-destructive text-sm">{error}</p>
-          </div>
-        )}
-
-        {success && (
-          <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3">
-            <p className="text-emerald-500 text-sm">{success}</p>
           </div>
         )}
 

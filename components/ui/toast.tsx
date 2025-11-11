@@ -1,19 +1,18 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Toast } from "@base-ui-components/react/toast"
+import { Toast } from "@base-ui-components/react/toast";
 import {
   CircleAlertIcon,
   CircleCheckIcon,
   InfoIcon,
   LoaderCircleIcon,
   TriangleAlertIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const toastManager = Toast.createToastManager()
+const toastManager = Toast.createToastManager();
 
 const TOAST_ICONS = {
   loading: LoaderCircleIcon,
@@ -21,7 +20,7 @@ const TOAST_ICONS = {
   error: CircleAlertIcon,
   info: InfoIcon,
   warning: TriangleAlertIcon,
-} as const
+} as const;
 
 type ToastPosition =
   | "top-left"
@@ -29,10 +28,10 @@ type ToastPosition =
   | "top-right"
   | "bottom-left"
   | "bottom-center"
-  | "bottom-right"
+  | "bottom-right";
 
 interface ToastProviderProps extends Toast.Provider.Props {
-  position?: ToastPosition
+  position?: ToastPosition;
 }
 
 function ToastProvider({
@@ -45,12 +44,12 @@ function ToastProvider({
       {children}
       <ToastList position={position} />
     </Toast.Provider>
-  )
+  );
 }
 
 function ToastList({ position = "bottom-right" }: { position: ToastPosition }) {
-  const { toasts } = Toast.useToastManager()
-  const isTop = position.startsWith("top")
+  const { toasts } = Toast.useToastManager();
+  const isTop = position.startsWith("top");
 
   return (
     <Toast.Portal data-slot="toast-portal">
@@ -71,7 +70,7 @@ function ToastList({ position = "bottom-right" }: { position: ToastPosition }) {
         {toasts.map((toast) => {
           const Icon = toast.type
             ? TOAST_ICONS[toast.type as keyof typeof TOAST_ICONS]
-            : null
+            : null;
 
           return (
             <Toast.Root
@@ -86,7 +85,7 @@ function ToastList({ position = "bottom-right" }: { position: ToastPosition }) {
                     : ["right", isTop ? "up" : "down"]
               }
               className={cn(
-                "absolute z-[calc(9999-var(--toast-index))] h-(--toast-calc-height) w-full rounded-lg border bg-popover bg-clip-padding px-3.5 py-3 text-popover-foreground shadow-lg select-none [transition:transform_.5s_cubic-bezier(.22,1,.36,1),opacity_.5s,height_.15s] before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:bg-clip-border dark:before:shadow-[0_-1px_--theme(--color-white/8%)]",
+                "absolute z-[calc(9999-var(--toast-index))] h-(--toast-calc-height) w-full rounded-lg border border-primary/30 bg-white/10 bg-clip-padding px-3.5 py-3 text-foreground shadow-lg select-none [transition:transform_.5s_cubic-bezier(.22,1,.36,1),opacity_.5s,height_.15s] before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)] dark:bg-clip-border dark:before:shadow-[0_-1px_--theme(--color-white/8%)]",
                 // Base positioning using data-position
                 "data-[position*=right]:right-0 data-[position*=right]:left-auto",
                 "data-[position*=left]:right-auto data-[position*=left]:left-0",
@@ -144,7 +143,7 @@ function ToastList({ position = "bottom-right" }: { position: ToastPosition }) {
                       data-slot="toast-title"
                     />
                     <Toast.Description
-                      className="text-muted-foreground"
+                      className="text-foreground"
                       data-slot="toast-description"
                     />
                   </div>
@@ -159,11 +158,11 @@ function ToastList({ position = "bottom-right" }: { position: ToastPosition }) {
                 )}
               </Toast.Content>
             </Toast.Root>
-          )
+          );
         })}
       </Toast.Viewport>
     </Toast.Portal>
-  )
+  );
 }
 
-export { ToastProvider, type ToastPosition, toastManager }
+export { toastManager, ToastProvider, type ToastPosition };

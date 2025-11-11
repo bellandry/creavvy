@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Avatar as AvatarPrimitive } from "@base-ui-components/react/avatar"
+import { Avatar as AvatarPrimitive } from "@base-ui-components/react/avatar";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Avatar({ className, ...props }: AvatarPrimitive.Root.Props) {
   return (
@@ -14,7 +14,7 @@ function Avatar({ className, ...props }: AvatarPrimitive.Root.Props) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
@@ -24,23 +24,40 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
       className={cn("size-full object-cover", className)}
       {...props}
     />
-  )
+  );
 }
 
 function AvatarFallback({
   className,
+  children,
   ...props
 }: AvatarPrimitive.Fallback.Props) {
+  // Extract the first letters of the first two words if children is a string
+  const getInitials = (text: string) => {
+    const words = text.trim().split(/\s+/);
+    const firstLetters = words
+      .slice(0, 2)
+      .map((word) => word.charAt(0).toUpperCase())
+      .join("");
+    return firstLetters;
+  };
+
+  // If children is a string, transform it to show only first letters of first two words
+  const transformedChildren =
+    typeof children === "string" ? getInitials(children) : children;
+
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       className={cn(
-        "flex size-full items-center justify-center rounded-full bg-muted",
+        "flex size-full items-center justify-center rounded-full bg-white/5",
         className
       )}
       {...props}
-    />
-  )
+    >
+      {transformedChildren}
+    </AvatarPrimitive.Fallback>
+  );
 }
 
-export { Avatar, AvatarImage, AvatarFallback }
+export { Avatar, AvatarFallback, AvatarImage };
