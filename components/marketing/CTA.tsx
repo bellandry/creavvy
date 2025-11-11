@@ -9,7 +9,7 @@ const CTA = () => {
         </h2>
         <p className="text-white/80 text-base sm:text-lg leading-normal max-w-xl">
           Rejoignez des milliers de développeurs et créateurs qui font confiance
-          à Snippet Studio.
+          à Creavvy.
         </p>
       </div>
       <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">

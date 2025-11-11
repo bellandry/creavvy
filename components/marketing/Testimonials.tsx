@@ -17,21 +17,17 @@ const Testimonials = () => {
       id: 2,
       name: "Sophie Dubois",
       role: "Ingénieure DevOps",
-      company: "CloudScale",
       content:
         "L'export haute qualité et les templates préconfigurés m'ont fait gagner des heures chaque semaine. Indispensable pour les créateurs tech !",
-      avatar:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuANgn78NzFfHq8YVlTfdDatPn9BAt9b076sf-FbcDgXM9F2sAgfVgR2_xhSqrv86snuAc0jSZSH3EKmYZlGRm5Ml855d-lZFiY0edkLzeOZlcPXh8e28UcoAoCIJIGDVbRIMjTaeiaGbfcgd4kuQ65fiI3SsBtXQlRn4-Y5iKl-EhsdYCa9HgGl7yRINvqZW6WhLpl555wx9HASzTBVrW03E3Tx22r_AaVoGdaOzQjNPX_PQBPjyCnKuiBsglidzcEA2sE0F_Ffgu4",
+      avatar: "https://randomuser.me/api/portraits/women/2.jpg",
     },
     {
       id: 3,
       name: "Thomas Bernard",
       role: "CTO",
-      company: "StartupXYZ",
       content:
-        "Notre équipe utilise Snippet Studio pour toute notre communication technique. Simple, efficace et professionnel.",
-      avatar:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuD2oy6t6pPICWuDcIUt3oiqLwZruks3JiLmMxf0nxZBTC-IFqxPo5bWcb9p62AeaRA_Y5NRSJTAmRoUhggA_I3F1cQg0iIXi-034Gfbl9xsbjgMOwLiZ4VPMmM1Z4mX",
+        "Notre équipe utilise Creavvy pour toute notre communication technique. Simple, efficace et professionnel.",
+      avatar: "https://randomuser.me/api/portraits/men/14.jpg",
     },
   ];
 
@@ -42,7 +38,7 @@ const Testimonials = () => {
           Rejoignez des milliers de créateurs satisfaits
         </h2>
         <p className="text-white/80 text-base sm:text-lg leading-normal max-w-2xl">
-          Découvrez pourquoi les professionnels tech choisissent Snippet Studio
+          Découvrez pourquoi les professionnels tech choisissent Creavvy
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">

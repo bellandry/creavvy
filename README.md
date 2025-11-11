@@ -1,8 +1,8 @@
-# Snippet Studio
+# Creavvy
 
-![Snippet Studio Preview](public/home/screen.png)
+![Creavvy Preview](public/home/screen.png)
 
-Snippet Studio is a modern web application built with Next.js that allows developers and content creators to transform code snippets and screenshots into viral content for social media. Create stunning visuals for your technical posts in seconds.
+Creavvy is a modern web application built with Next.js that allows developers and content creators to transform code snippets and screenshots into viral content for social media. Create stunning visuals for your technical posts in seconds.
 
 ## Features
 

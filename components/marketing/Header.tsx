@@ -75,7 +75,7 @@ const Header = () => {
             : "bg-transparent border-transparent"
         }`}
       >
-        <div className="flex items-center gap-4 justify-between whitespace-nowrap px-4 py-3 sm:px-6">
+        <div className="flex items-center gap-9 justify-between whitespace-nowrap px-4 py-3 sm:px-6">
           <div className="flex items-center gap-4">
             <div className="size-6 text-primary">
               <svg
@@ -87,7 +87,7 @@ const Header = () => {
               </svg>
             </div>
             <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">
-              Snippet Studio
+              Creavvy
             </h2>
           </div>
 
@@ -122,7 +122,7 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="flex flex-1 justify-end gap-2">
+          <div className="flex justify-end gap-2">
             <button className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex">
               <span className="truncate">Commencer à créer</span>
             </button>
@@ -172,7 +172,7 @@ const Header = () => {
                 </svg>
               </div>
               <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">
-                Snippet Studio
+                Creavvy
               </h2>
             </div>
             <button

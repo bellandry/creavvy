@@ -13,10 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title:
-    "Snippet Studio - Créez des visuels percutants pour votre contenu tech",
+  title: "Creavvy - Créez des visuels percutants pour votre contenu tech",
   description:
-    "Créez des visuels de code, des captures d'écran stylisées et des posts techniques parfaits pour les réseaux sociaux en quelques secondes.",
+    "Créez des visuels de code, des captures d&apos;écran stylisées et des posts techniques parfaits pour les réseaux sociaux en quelques secondes.",
 };
 
 export default function RootLayout({
