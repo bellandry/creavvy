@@ -1,5 +1,24 @@
 import Logo from "@/components/logo";
+import { SEO_CONFIG } from "@/lib/seo";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Connexion | Creavvy",
+    template: `%s | ${SEO_CONFIG.siteName}`,
+  },
+  description:
+    "Connectez-vous à votre compte Creavvy pour créer des visuels de code et des captures d'écran stylisées.",
+  keywords: [...SEO_CONFIG.keywords, "connexion", "authentification", "compte"],
+  authors: [{ name: SEO_CONFIG.author }],
+  creator: SEO_CONFIG.author,
+  publisher: SEO_CONFIG.siteName,
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function AuthLayout({
   children,
