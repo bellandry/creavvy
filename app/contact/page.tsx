@@ -1,6 +1,31 @@
 import Contact from "@/components/marketing/Contact";
 import Footer from "@/components/marketing/Footer";
 import Header from "@/components/marketing/Header";
+import { PAGE_SEO } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: PAGE_SEO.contact.title,
+  description: PAGE_SEO.contact.description,
+  openGraph: {
+    title: PAGE_SEO.contact.title,
+    description: PAGE_SEO.contact.description,
+    url: PAGE_SEO.contact.path,
+    images: [
+      {
+        url: PAGE_SEO.contact.image,
+        width: 1200,
+        height: 630,
+        alt: PAGE_SEO.contact.imageAlt,
+      },
+    ],
+  },
+  twitter: {
+    title: PAGE_SEO.contact.title,
+    description: PAGE_SEO.contact.description,
+    images: [PAGE_SEO.contact.image],
+  },
+};
 
 export default function ContactPage() {
   return (

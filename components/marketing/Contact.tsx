@@ -64,7 +64,7 @@ const Contact = () => {
 
           <div className="flex flex-col gap-6">
             <div className="flex items-start gap-4">
-              <div className="mt-1 p-2 bg-primary/10 rounded-lg">
+              <div className="mt-1 p-2 bg-primary/10 rounded-lg" aria-hidden="true">
                 <svg
                   className="w-6 h-6 text-primary"
                   fill="none"
@@ -87,7 +87,7 @@ const Contact = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="mt-1 p-2 bg-primary/10 rounded-lg">
+              <div className="mt-1 p-2 bg-primary/10 rounded-lg" aria-hidden="true">
                 <svg
                   className="w-6 h-6 text-primary"
                   fill="none"
@@ -120,7 +120,7 @@ const Contact = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="mt-1 p-2 bg-primary/10 rounded-lg">
+              <div className="mt-1 p-2 bg-primary/10 rounded-lg" aria-hidden="true">
                 <svg
                   className="w-6 h-6 text-primary"
                   fill="none"
@@ -142,6 +142,7 @@ const Contact = () => {
                   <a
                     href="#"
                     className="text-white/70 hover:text-white transition-colors"
+                    aria-label="Twitter"
                   >
                     <span className="sr-only">Twitter</span>
                     <svg
@@ -155,6 +156,7 @@ const Contact = () => {
                   <a
                     href="#"
                     className="text-white/70 hover:text-white transition-colors"
+                    aria-label="GitHub"
                   >
                     <span className="sr-only">GitHub</span>
                     <svg
@@ -172,6 +174,7 @@ const Contact = () => {
                   <a
                     href="#"
                     className="text-white/70 hover:text-white transition-colors"
+                    aria-label="LinkedIn"
                   >
                     <span className="sr-only">LinkedIn</span>
                     <svg
@@ -208,6 +211,7 @@ const Contact = () => {
                   required
                   className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   placeholder="Votre nom"
+                  aria-label="Nom complet"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -226,6 +230,7 @@ const Contact = () => {
                   required
                   className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   placeholder="votre@email.com"
+                  aria-label="Adresse email"
                 />
               </div>
             </div>
@@ -245,6 +250,7 @@ const Contact = () => {
                 required
                 className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Quel est le sujet de votre message ?"
+                aria-label="Sujet du message"
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -263,12 +269,14 @@ const Contact = () => {
                 rows={5}
                 className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Votre message..."
+                aria-label="Contenu du message"
               ></textarea>
             </div>
             <button
               type="submit"
               disabled={isSubmitting}
               className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity disabled:opacity-50"
+              aria-label="Envoyer le message"
             >
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
@@ -300,7 +308,7 @@ const Contact = () => {
             </button>
 
             {submitStatus === "success" && (
-              <div className="p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
+              <div className="p-4 bg-green-500/20 border border-green-500/30 rounded-lg" role="alert">
                 <p className="text-green-400 text-center">
                   Merci pour votre message ! Nous vous répondrons dans les plus
                   brefs délais.
@@ -309,7 +317,7 @@ const Contact = () => {
             )}
 
             {submitStatus === "error" && (
-              <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
+              <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-lg" role="alert">
                 <p className="text-red-400 text-center">
                   Une erreur s&apos;est produite. Veuillez réessayer.
                 </p>

@@ -1,23 +1,32 @@
 "use client";
+
 import { authClient } from "@/lib/auth-client";
 import Lenis from "lenis";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+
+// Navigation items configuration
+const NAVIGATION_ITEMS = [
+  {
+    id: "fonctionnalites",
+    label: "Fonctionnalités",
+    href: "/#fonctionnalites",
+  },
+  { id: "tarifs", label: "Tarifs", href: "/#tarifs" },
+  { id: "faq", label: "FAQ", href: "/#faq" },
+  { id: "contact", label: "Contact", href: "/contact" },
+];
 
 const Header = () => {
   const lenisRef = useRef<Lenis | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  // const router = useRouter();
+  const pathname = usePathname();
+  const router = useRouter();
   const { data: session } = authClient.useSession();
-
-  // useEffect(() => {
-  //   if (!isPending && !session?.user) {
-  //     router.push("/sign-in");
-  //   }
-  // }, [isPending, session, router]);
 
   useEffect(() => {
     // Initialize Lenis
@@ -77,35 +86,104 @@ const Header = () => {
     closeMenu();
   };
 
-  // if (isPending || !session?.user)
-  //   return <p className="text-center mt-8 text-white">Loading...</p>;
-  // if (!session?.user)
-  //   return <p className="text-center mt-8 text-white">Redirecting...</p>;
+  // Handle navigation click
+  const handleNavigationClick = (id: string, href: string) => {
+    // If we're on the home page, scroll to section
+    if (pathname === "/" && href.startsWith("/#")) {
+      scrollToSection(id);
+    } else if (href.startsWith("/#")) {
+      // If we're on another page, navigate to home and then scroll
+      router.push(href);
+    }
+    // For regular links like /contact, let the Link component handle it
+  };
 
-  let btn = (
-    <Link
-      href={"/sign-in"}
-      className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex"
-    >
-      <span className="truncate">Commencer à créer</span>
-    </Link>
-  );
-  if (session) {
-    btn = (
-      <div className="flex gap-4 items-center">
+  // Render navigation items
+  const renderNavItems = (isMobile = false) => (
+    <>
+      {NAVIGATION_ITEMS.map((item) => (
         <Link
-          href={"/dashboard"}
-          className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex"
+          key={item.id}
+          href={item.href}
+          className={`${
+            isMobile ? "text-xl" : "text-sm"
+          } font-medium leading-normal transition-colors ${
+            isMobile
+              ? "text-white/80 hover:text-white"
+              : "text-white/80 hover:text-white"
+          }`}
+          onClick={(e) => {
+            // Only prevent default for anchor links on the home page
+            if (pathname === "/" && item.href.startsWith("/#")) {
+              e.preventDefault();
+              handleNavigationClick(item.id, item.href);
+            }
+            if (isMobile) {
+              closeMenu();
+            }
+          }}
+          aria-label={item.label}
         >
-          <span className="truncate">Dashboard</span>
+          {item.label}
         </Link>
-        <Avatar className="size-10">
-          <AvatarImage src={session.user.image!} alt="User avatar" />
-          <AvatarFallback>{session.user.name}</AvatarFallback>
-        </Avatar>
-      </div>
+      ))}
+    </>
+  );
+
+  // Render user button
+  const renderUserButton = () => {
+    if (session) {
+      return (
+        <div className="flex gap-4 items-center">
+          <Link
+            href={"/dashboard"}
+            className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex"
+          >
+            <span className="truncate">Dashboard</span>
+          </Link>
+          <Avatar className="size-10">
+            <AvatarImage src={session.user.image!} alt="User avatar" />
+            <AvatarFallback>{session.user.name}</AvatarFallback>
+          </Avatar>
+        </div>
+      );
+    }
+
+    return (
+      <Link
+        href={"/sign-in"}
+        className="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity hidden lg:flex"
+      >
+        <span className="truncate">Commencer à créer</span>
+      </Link>
     );
-  }
+  };
+
+  // Render mobile menu button
+  const renderMenuButton = () => (
+    <button
+      className="lg:hidden flex flex-col justify-center items-center gap-1 w-10 h-10 rounded-lg bg-white/5 border border-white/10"
+      onClick={toggleMenu}
+      aria-label="Toggle menu"
+      aria-expanded={isMenuOpen}
+    >
+      <span
+        className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
+          isMenuOpen ? "rotate-45 translate-y-1.5" : ""
+        }`}
+      ></span>
+      <span
+        className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
+          isMenuOpen ? "opacity-0" : "opacity-100"
+        }`}
+      ></span>
+      <span
+        className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
+          isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+        }`}
+      ></span>
+    </button>
+  );
 
   return (
     <>
@@ -134,60 +212,12 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-9 lg:flex">
-            <Link
-              href={"/#fonctionnalites"}
-              className="text-white/80 hover:text-white transition-colors text-sm font-medium leading-normal"
-              onClick={() => scrollToSection("fonctionnalites")}
-            >
-              Fonctionnalités
-            </Link>
-            <Link
-              href={"/#tarifs"}
-              className="text-white/80 hover:text-white transition-colors text-sm font-medium leading-normal"
-              onClick={() => scrollToSection("tarifs")}
-            >
-              Tarifs
-            </Link>
-            <Link
-              href={"/#faq"}
-              className="text-white/80 hover:text-white transition-colors text-sm font-medium leading-normal"
-              onClick={() => scrollToSection("faq")}
-            >
-              FAQ
-            </Link>
-            <Link
-              href={"/contact"}
-              className="text-white/80 hover:text-white transition-colors text-sm font-medium leading-normal"
-            >
-              Contact
-            </Link>
+            {renderNavItems()}
           </div>
 
           <div className="flex justify-end gap-2">
-            {btn}
-
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden flex flex-col justify-center items-center gap-1 w-10 h-10 rounded-lg bg-white/5 border border-white/10"
-              onClick={toggleMenu}
-              aria-label="Toggle menu"
-            >
-              <span
-                className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                  isMenuOpen ? "rotate-45 translate-y-1.5" : ""
-                }`}
-              ></span>
-              <span
-                className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                  isMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              ></span>
-              <span
-                className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                  isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-                }`}
-              ></span>
-            </button>
+            {renderUserButton()}
+            {renderMenuButton()}
           </div>
         </div>
       </header>
@@ -225,46 +255,11 @@ const Header = () => {
           </div>
 
           <div className="flex flex-col items-center justify-center flex-1 gap-8 p-6">
-            <Link
-              href={"/#fonctionnalites"}
-              className="text-white/80 hover:text-white transition-colors text-xl font-medium leading-normal"
-              onClick={() => {
-                scrollToSection("fonctionnalites");
-                closeMenu();
-              }}
+            {renderNavItems(true)}
+            <Button
+              render={<Link href="/sign-in" />}
+              className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity"
             >
-              Fonctionnalités
-            </Link>
-            <Link
-              href={"/#tarifs"}
-              className="text-white/80 hover:text-white transition-colors text-xl font-medium leading-normal"
-              onClick={() => {
-                scrollToSection("tarifs");
-                closeMenu();
-              }}
-            >
-              Tarifs
-            </Link>
-            <Link
-              href={"/#faq"}
-              className="text-white/80 hover:text-white transition-colors text-xl font-medium leading-normal"
-              onClick={() => {
-                scrollToSection("faq");
-                closeMenu();
-              }}
-            >
-              FAQ
-            </Link>
-            <Link
-              href={"/contact"}
-              className="text-white/80 hover:text-white transition-colors text-xl font-medium leading-normal"
-              onClick={() => {
-                closeMenu();
-              }}
-            >
-              Contact
-            </Link>
-            <Button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
               <span className="truncate">Commencer à créer</span>
             </Button>
           </div>
@@ -276,6 +271,7 @@ const Header = () => {
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-500"
           onClick={closeMenu}
+          aria-hidden="true"
         ></div>
       )}
     </>

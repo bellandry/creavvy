@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
-            <div className="size-8 text-primary">
+            <div className="size-8 text-primary" aria-hidden="true">
               <svg
                 fill="currentColor"
                 viewBox="0 0 24 24"
@@ -30,6 +30,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Fonctionnalités"
               >
                 Fonctionnalités
               </a>
@@ -38,6 +39,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Tarifs"
               >
                 Tarifs
               </a>
@@ -46,6 +48,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Templates"
               >
                 Templates
               </a>
@@ -54,6 +57,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Intégrations"
               >
                 Intégrations
               </a>
@@ -68,6 +72,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Documentation"
               >
                 Documentation
               </a>
@@ -76,6 +81,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Blog"
               >
                 Blog
               </a>
@@ -84,6 +90,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Tutoriels"
               >
                 Tutoriels
               </a>
@@ -92,6 +99,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Support"
               >
                 Support
               </a>
@@ -106,6 +114,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="À propos"
               >
                 À propos
               </a>
@@ -114,6 +123,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Contact"
               >
                 Contact
               </a>
@@ -122,6 +132,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Carrières"
               >
                 Carrières
               </a>
@@ -130,6 +141,7 @@ const Footer = () => {
               <a
                 href="#"
                 className="text-white/70 hover:text-white text-sm transition-colors"
+                aria-label="Mentions légales"
               >
                 Mentions légales
               </a>
@@ -141,12 +153,13 @@ const Footer = () => {
       <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-white/70 text-sm">
           © {new Date().getFullYear()} Creavvy. Fait avec ❤️ par{" "}
-          <a href="https://laclass.dev">Landry Bella</a>.
+          <a href="https://laclass.dev" aria-label="Site de Landry Bella">Landry Bella</a>.
         </p>
         <div className="flex gap-4">
           <a
             href="#"
             className="text-white/70 hover:text-white transition-colors"
+            aria-label="Twitter"
           >
             <span className="sr-only">Twitter</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -156,6 +169,7 @@ const Footer = () => {
           <a
             href="#"
             className="text-white/70 hover:text-white transition-colors"
+            aria-label="GitHub"
           >
             <span className="sr-only">GitHub</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -169,6 +183,7 @@ const Footer = () => {
           <a
             href="#"
             className="text-white/70 hover:text-white transition-colors"
+            aria-label="LinkedIn"
           >
             <span className="sr-only">LinkedIn</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">

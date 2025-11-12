@@ -6,12 +6,19 @@ import { authClient } from "@/lib/auth-client";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CheckEmailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
+  const { data: session, isPending } = authClient.useSession();
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/dashboard");
+    }
+  }, [isPending, session, router]);
 
   // Get the email from search params or use a default
   const email = searchParams.get("email") || "votre adresse e-mail";
@@ -50,7 +57,6 @@ export default function CheckEmailPage() {
         router.replace(`/check-email?${newParams.toString()}`);
       }
     } catch (err) {
-      console.log(err);
       toastManager.add({
         type: "error",
         title: "Erreur",
