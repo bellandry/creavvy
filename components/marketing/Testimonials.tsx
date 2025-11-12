@@ -46,6 +46,8 @@ const Testimonials = () => {
           <div
             key={testimonial.id}
             className="flex flex-col gap-4 p-6 bg-white/5 border border-white/10 rounded-xl"
+            role="region"
+            aria-labelledby={`testimonial-${testimonial.id}-name`}
           >
             <div className="flex gap-3">
               <div
@@ -53,9 +55,13 @@ const Testimonials = () => {
                 style={{
                   backgroundImage: `url('${testimonial.avatar}')`,
                 }}
+                aria-hidden="true"
               ></div>
               <div className="flex-1">
-                <p className="text-white text-base font-bold leading-normal">
+                <p
+                  id={`testimonial-${testimonial.id}-name`}
+                  className="text-white text-base font-bold leading-normal"
+                >
                   {testimonial.name}
                 </p>
                 <p className="text-white/60 text-sm font-normal leading-normal">
@@ -63,36 +69,40 @@ const Testimonials = () => {
                 </p>
               </div>
             </div>
-            <div className="flex gap-0.5 text-primary">
+            <div
+              className="flex gap-0.5 text-primary"
+              role="img"
+              aria-label="Note de 5 étoiles"
+            >
               <span
                 className="material-symbols-outlined"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
-                <Star className="size-4" />
+                <Star className="size-4" aria-hidden="true" />
               </span>
               <span
                 className="material-symbols-outlined"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
-                <Star className="size-4" />
+                <Star className="size-4" aria-hidden="true" />
               </span>
               <span
                 className="material-symbols-outlined"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
-                <Star className="size-4" />
+                <Star className="size-4" aria-hidden="true" />
               </span>
               <span
                 className="material-symbols-outlined"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
-                <Star className="size-4" />
+                <Star className="size-4" aria-hidden="true" />
               </span>
               <span
                 className="material-symbols-outlined"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
-                <Star className="size-4" />
+                <Star className="size-4" aria-hidden="true" />
               </span>
             </div>
             <p className="text-white/90 text-base font-normal leading-normal">

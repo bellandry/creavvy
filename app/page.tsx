@@ -1,3 +1,5 @@
+import { PAGE_SEO } from "@/lib/seo";
+import type { Metadata } from "next";
 import CTA from "../components/marketing/CTA";
 import FAQ from "../components/marketing/FAQ";
 import Features from "../components/marketing/Features";
@@ -6,6 +8,29 @@ import Header from "../components/marketing/Header";
 import Hero from "../components/marketing/Hero";
 import Pricing from "../components/marketing/Pricing";
 import Testimonials from "../components/marketing/Testimonials";
+
+export const metadata: Metadata = {
+  title: PAGE_SEO.home.title,
+  description: PAGE_SEO.home.description,
+  openGraph: {
+    title: PAGE_SEO.home.title,
+    description: PAGE_SEO.home.description,
+    url: PAGE_SEO.home.path,
+    images: [
+      {
+        url: PAGE_SEO.home.image,
+        width: 1200,
+        height: 630,
+        alt: PAGE_SEO.home.imageAlt,
+      },
+    ],
+  },
+  twitter: {
+    title: PAGE_SEO.home.title,
+    description: PAGE_SEO.home.description,
+    images: [PAGE_SEO.home.image],
+  },
+};
 
 export default function Home() {
   return (

@@ -52,20 +52,24 @@ const FAQ = () => {
             <button
               className="flex justify-between items-center w-full text-left"
               onClick={() => toggleFAQ(index)}
+              aria-expanded={openIndex === index}
+              aria-controls={`faq-answer-${index}`}
             >
               <h3 className="text-white text-md md:text-lg font-bold">
                 {faq.question}
               </h3>
               <span className="material-symbols-outlined text-2xl">
                 {openIndex === index ? (
-                  <Minus className="size-4 md:size-6" />
+                  <Minus className="size-4 md:size-6" aria-hidden="true" />
                 ) : (
-                  <Plus className="size-4 md:size-6" />
+                  <Plus className="size-4 md:size-6" aria-hidden="true" />
                 )}
               </span>
             </button>
             {openIndex === index && (
-              <p className="text-white/70 mt-4">{faq.answer}</p>
+              <p id={`faq-answer-${index}`} className="text-white/70 mt-4">
+                {faq.answer}
+              </p>
             )}
           </div>
         ))}
