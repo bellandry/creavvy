@@ -13,18 +13,19 @@ export const SEO_CONFIG = {
     "créateurs tech",
     "visuels",
     "design",
-    "outils de développement"
+    "outils de développement",
   ],
   author: "Creavvy Team",
   baseUrl: "https://creavvy.com", // Production URL
   locale: "fr_FR",
   image: "/home/screen.png",
-  imageAlt: "Aperçu de l'interface de Creavvy montrant la création de visuels de code",
+  imageAlt:
+    "Aperçu de l'interface de Creavvy montrant la création de visuels de code",
   twitter: {
     site: "@creavvy",
     creator: "@creavvy",
-    card: "summary_large_image"
-  }
+    card: "summary_large_image",
+  },
 };
 
 // Page-specific SEO configurations
@@ -35,7 +36,8 @@ export const PAGE_SEO = {
       "Créez des visuels de code, des captures d'écran stylisées et des posts techniques parfaits pour les réseaux sociaux en quelques secondes.",
     path: "/",
     image: "/home/screen.png",
-    imageAlt: "Aperçu de l'interface de Creavvy montrant la création de visuels de code"
+    imageAlt:
+      "Aperçu de l'interface de Creavvy montrant la création de visuels de code",
   },
   contact: {
     title: "Contactez-nous - Creavvy",
@@ -43,8 +45,8 @@ export const PAGE_SEO = {
       "Une question ? Besoin d'aide ? Contactez l'équipe Creavvy pour obtenir de l'assistance.",
     path: "/contact",
     image: "/home/screen.png",
-    imageAlt: "Page de contact de Creavvy"
-  }
+    imageAlt: "Page de contact de Creavvy",
+  },
 };
 
 // Structured data for rich results
@@ -52,24 +54,24 @@ export const STRUCTURED_DATA = {
   organization: {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Creavvy",
-    "url": "https://creavvy.com",
-    "logo": "https://creavvy.com/home/screen.png",
-    "sameAs": [
+    name: "Creavvy",
+    url: "https://creavvy.com",
+    logo: "https://creavvy.com/home/screen.png",
+    sameAs: [
       "https://twitter.com/creavvy",
       "https://github.com/creavvy",
-      "https://linkedin.com/company/creavvy"
-    ]
+      "https://linkedin.com/company/creavvy",
+    ],
   },
   website: {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Creavvy",
-    "url": "https://creavvy.com",
-    "potentialAction": {
+    name: "Creavvy",
+    url: "https://creavvy.com",
+    potentialAction: {
       "@type": "SearchAction",
-      "target": "https://creavvy.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
+      target: "https://creavvy.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  },
 };

@@ -1,3 +1,5 @@
+import { PAGE_SEO } from "@/lib/seo";
+import type { Metadata } from "next";
 import CTA from "../components/marketing/CTA";
 import FAQ from "../components/marketing/FAQ";
 import Features from "../components/marketing/Features";
@@ -6,8 +8,6 @@ import Header from "../components/marketing/Header";
 import Hero from "../components/marketing/Hero";
 import Pricing from "../components/marketing/Pricing";
 import Testimonials from "../components/marketing/Testimonials";
-import { PAGE_SEO } from "@/lib/seo";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: PAGE_SEO.home.title,

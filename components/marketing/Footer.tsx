@@ -153,7 +153,10 @@ const Footer = () => {
       <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-white/70 text-sm">
           © {new Date().getFullYear()} Creavvy. Fait avec ❤️ par{" "}
-          <a href="https://laclass.dev" aria-label="Site de Landry Bella">Landry Bella</a>.
+          <a href="https://laclass.dev" aria-label="Site de Landry Bella">
+            Landry Bella
+          </a>
+          .
         </p>
         <div className="flex gap-4">
           <a

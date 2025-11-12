@@ -58,7 +58,10 @@ const Testimonials = () => {
                 aria-hidden="true"
               ></div>
               <div className="flex-1">
-                <p id={`testimonial-${testimonial.id}-name`} className="text-white text-base font-bold leading-normal">
+                <p
+                  id={`testimonial-${testimonial.id}-name`}
+                  className="text-white text-base font-bold leading-normal"
+                >
                   {testimonial.name}
                 </p>
                 <p className="text-white/60 text-sm font-normal leading-normal">
@@ -66,7 +69,11 @@ const Testimonials = () => {
                 </p>
               </div>
             </div>
-            <div className="flex gap-0.5 text-primary" role="img" aria-label="Note de 5 étoiles">
+            <div
+              className="flex gap-0.5 text-primary"
+              role="img"
+              aria-label="Note de 5 étoiles"
+            >
               <span
                 className="material-symbols-outlined"
                 style={{ fontVariationSettings: "'FILL' 1" }}

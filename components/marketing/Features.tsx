@@ -82,7 +82,9 @@ const Features = () => {
           role="region"
           aria-labelledby="feature-1-title"
         >
-          <h3 id="feature-1-title" className="text-white text-xl font-bold">Import facile</h3>
+          <h3 id="feature-1-title" className="text-white text-xl font-bold">
+            Import facile
+          </h3>
           <p className="text-white/70 text-base font-normal">
             Collez votre code ou glissez-déposez vos captures d&apos;écran pour
             commencer à créer sans effort.
@@ -124,7 +126,9 @@ const Features = () => {
           role="region"
           aria-labelledby="feature-3-title"
         >
-          <h3 id="feature-3-title" className="text-white text-xl font-bold">Export haute qualité</h3>
+          <h3 id="feature-3-title" className="text-white text-xl font-bold">
+            Export haute qualité
+          </h3>
           <p className="text-white/70 text-base font-normal">
             Téléchargez vos créations en PNG ou SVG pour une netteté parfaite
             sur tous les supports.

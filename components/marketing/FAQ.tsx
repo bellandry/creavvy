@@ -67,10 +67,7 @@ const FAQ = () => {
               </span>
             </button>
             {openIndex === index && (
-              <p 
-                id={`faq-answer-${index}`}
-                className="text-white/70 mt-4"
-              >
+              <p id={`faq-answer-${index}`} className="text-white/70 mt-4">
                 {faq.answer}
               </p>
             )}

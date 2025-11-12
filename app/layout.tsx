@@ -1,9 +1,10 @@
+import { StructuredData } from "@/components/marketing/StructuredData";
 import { ToastProvider } from "@/components/ui/toast";
+import { PAGE_SEO, SEO_CONFIG } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
-import { SEO_CONFIG, PAGE_SEO } from "@/lib/seo";
-import { StructuredData } from "@/components/marketing/StructuredData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,7 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default: PAGE_SEO.home.title,
-    template: `%s | ${SEO_CONFIG.siteName}`
+    template: `%s | ${SEO_CONFIG.siteName}`,
   },
   description: PAGE_SEO.home.description,
   keywords: SEO_CONFIG.keywords,
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   publisher: SEO_CONFIG.siteName,
   metadataBase: new URL(SEO_CONFIG.baseUrl),
   alternates: {
-    canonical: SEO_CONFIG.baseUrl
+    canonical: SEO_CONFIG.baseUrl,
   },
   openGraph: {
     type: "website",
@@ -78,7 +79,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background-light dark:bg-background-dark font-sans text-white`}
       >
-        <ToastProvider>{children}</ToastProvider>
+        <NuqsAdapter>
+          <ToastProvider>{children}</ToastProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

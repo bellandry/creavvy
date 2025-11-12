@@ -15,7 +15,7 @@ const Hero = () => {
           secondes.
         </h2>
       </div>
-      <button 
+      <button
         className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity"
         aria-label="Commencer à créer gratuitement"
       >

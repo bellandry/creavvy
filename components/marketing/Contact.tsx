@@ -64,7 +64,10 @@ const Contact = () => {
 
           <div className="flex flex-col gap-6">
             <div className="flex items-start gap-4">
-              <div className="mt-1 p-2 bg-primary/10 rounded-lg" aria-hidden="true">
+              <div
+                className="mt-1 p-2 bg-primary/10 rounded-lg"
+                aria-hidden="true"
+              >
                 <svg
                   className="w-6 h-6 text-primary"
                   fill="none"
@@ -87,7 +90,10 @@ const Contact = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="mt-1 p-2 bg-primary/10 rounded-lg" aria-hidden="true">
+              <div
+                className="mt-1 p-2 bg-primary/10 rounded-lg"
+                aria-hidden="true"
+              >
                 <svg
                   className="w-6 h-6 text-primary"
                   fill="none"
@@ -120,7 +126,10 @@ const Contact = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="mt-1 p-2 bg-primary/10 rounded-lg" aria-hidden="true">
+              <div
+                className="mt-1 p-2 bg-primary/10 rounded-lg"
+                aria-hidden="true"
+              >
                 <svg
                   className="w-6 h-6 text-primary"
                   fill="none"
@@ -308,7 +317,10 @@ const Contact = () => {
             </button>
 
             {submitStatus === "success" && (
-              <div className="p-4 bg-green-500/20 border border-green-500/30 rounded-lg" role="alert">
+              <div
+                className="p-4 bg-green-500/20 border border-green-500/30 rounded-lg"
+                role="alert"
+              >
                 <p className="text-green-400 text-center">
                   Merci pour votre message ! Nous vous répondrons dans les plus
                   brefs délais.
@@ -317,7 +329,10 @@ const Contact = () => {
             )}
 
             {submitStatus === "error" && (
-              <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-lg" role="alert">
+              <div
+                className="p-4 bg-red-500/20 border border-red-500/30 rounded-lg"
+                role="alert"
+              >
                 <p className="text-red-400 text-center">
                   Une erreur s&apos;est produite. Veuillez réessayer.
                 </p>

@@ -7,8 +7,8 @@ export function StructuredData() {
       dangerouslySetInnerHTML={{
         __html: JSON.stringify([
           STRUCTURED_DATA.organization,
-          STRUCTURED_DATA.website
-        ])
+          STRUCTURED_DATA.website,
+        ]),
       }}
     />
   );
