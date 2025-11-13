@@ -4,13 +4,13 @@ import SocialLogin from "./social-login";
 
 export default function SignIn() {
   return (
-    <div className="min-h-full flex flex-col">
+    <div className="min-h-full flex flex-col px-2">
       <div
-        className="flex flex-1 items-center justify-center p-4"
+        className="flex flex-1 items-center py-6 justify-center"
         style={{ fontFamily: 'Inter, "Noto Sans", sans-serif' }}
       >
         <div className="layout-container flex h-full w-full max-w-md flex-col items-center justify-center">
-          <div className="flex w-full flex-col items-center gap-6 rounded-xl bg-white/5 p-8 shadow-2xl">
+          <div className="flex w-full flex-col items-center gap-6 rounded-xl bg-white/5 px-4 md:px-6 py-8 shadow-2xl">
             <p className="items-center uppercase text-neutral-400">
               Se connecter avec
             </p>

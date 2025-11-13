@@ -16,7 +16,7 @@ export const SEO_CONFIG = {
     "outils de développement",
   ],
   author: "Creavvy Team",
-  baseUrl: "https://creavvy.com", // Production URL
+  baseUrl: "https://creavvy.laclass.dev", // Production URL
   locale: "fr_FR",
   image: "/home/screen.png",
   imageAlt:
@@ -55,11 +55,11 @@ export const STRUCTURED_DATA = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Creavvy",
-    url: "https://creavvy.com",
-    logo: "https://creavvy.com/home/screen.png",
+    url: "https://creavvy.laclass.dev",
+    logo: "https://creavvy.laclass.dev/home/screen.png",
     sameAs: [
       "https://twitter.com/creavvy",
-      "https://github.com/creavvy",
+      "https://github.com/bellandry/creavvy",
       "https://linkedin.com/company/creavvy",
     ],
   },
@@ -67,10 +67,10 @@ export const STRUCTURED_DATA = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Creavvy",
-    url: "https://creavvy.com",
+    url: "https://creavvy.laclass.dev",
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://creavvy.com/search?q={search_term_string}",
+      target: "https://creavvy.laclass.dev/search?q={search_term_string}",
       "query-input": "required name=search_term_string",
     },
   },
