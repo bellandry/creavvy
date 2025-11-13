@@ -15,7 +15,7 @@ export const SEO_CONFIG = {
     "design",
     "outils de développement",
   ],
-  author: "Creavvy Team",
+  author: "Landry Bella",
   baseUrl: "https://creavvy.laclass.dev", // Production URL
   locale: "fr_FR",
   image: "/home/screen.png",
@@ -40,12 +40,20 @@ export const PAGE_SEO = {
       "Aperçu de l'interface de Creavvy montrant la création de visuels de code",
   },
   contact: {
-    title: "Contactez-nous - Creavvy",
+    title: "Contactez-nous",
     description:
       "Une question ? Besoin d'aide ? Contactez l'équipe Creavvy pour obtenir de l'assistance.",
     path: "/contact",
     image: "/home/screen.png",
     imageAlt: "Page de contact de Creavvy",
+  },
+  signin: {
+    title: "Connexion",
+    description:
+      "Connectez-vous à votre compte Creavvy pour créer des visuels de code et des captures d'écran stylisées.",
+    path: "/sign-in",
+    image: "/home/screen.png",
+    imageAlt: "Page de connexion de Creavvy",
   },
 };
 

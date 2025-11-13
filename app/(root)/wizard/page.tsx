@@ -2,8 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function WizardPage() {
   return (
-    <div className="max-w-md w-full space-y-4">
-      <div className="bg-white/8 backdrop-blur-sm border border-primary/20 rounded-lg p-6 space-y-4">
+    <div className="max-w-md mx-auto min-h-screen justify-center flex flex-col items-center w-full space-y-4">
+      <div className="bg-white/8 w-full backdrop-blur-sm border border-primary/20 rounded-lg p-6 space-y-4">
         <div className="flex justify-center">
           <div className="bg-primary/10 border border-primary rounded-full w-16 h-16 flex items-center justify-center mb-4">
             <Skeleton className="h-8 w-8 bg-primary/30 rounded-full" />
