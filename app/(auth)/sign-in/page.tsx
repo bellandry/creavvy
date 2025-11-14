@@ -1,31 +1,38 @@
 import SignIn from "@/components/auth/sign-in";
 import BackBtn from "@/components/back-btn";
-import { auth } from "@/lib/auth";
+import { PAGE_SEO } from "@/lib/seo";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Connexion | Creavvy",
-  description:
-    "Connectez-vous à votre compte Creavvy pour créer des visuels de code et des captures d'écran stylisées.",
+  title: PAGE_SEO.signin.title,
+  description: PAGE_SEO.signin.description,
+  openGraph: {
+    title: PAGE_SEO.signin.title,
+    description: PAGE_SEO.signin.description,
+    url: PAGE_SEO.signin.path,
+    images: [
+      {
+        url: PAGE_SEO.signin.image,
+        width: 1200,
+        height: 630,
+        alt: PAGE_SEO.signin.imageAlt,
+      },
+    ],
+  },
+  twitter: {
+    title: PAGE_SEO.signin.title,
+    description: PAGE_SEO.signin.description,
+    images: [PAGE_SEO.signin.image],
+  },
   robots: {
     index: true,
-    follow: false,
+    follow: true,
   },
 };
 
 export default async function SignInPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
-  });
-
-  if (session?.user) {
-    redirect("/dashboard");
-  }
-
   return (
-    <div className="h-full flex flex-col items-center justify-center p-4">
+    <div className="h-full flex flex-col items-center justify-center p-2">
       <BackBtn />
       <SignIn />
     </div>

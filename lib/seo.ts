@@ -15,8 +15,8 @@ export const SEO_CONFIG = {
     "design",
     "outils de développement",
   ],
-  author: "Creavvy Team",
-  baseUrl: "https://creavvy.com", // Production URL
+  author: "Landry Bella",
+  baseUrl: "https://creavvy.laclass.dev", // Production URL
   locale: "fr_FR",
   image: "/home/screen.png",
   imageAlt:
@@ -40,12 +40,20 @@ export const PAGE_SEO = {
       "Aperçu de l'interface de Creavvy montrant la création de visuels de code",
   },
   contact: {
-    title: "Contactez-nous - Creavvy",
+    title: "Contactez-nous",
     description:
       "Une question ? Besoin d'aide ? Contactez l'équipe Creavvy pour obtenir de l'assistance.",
     path: "/contact",
     image: "/home/screen.png",
     imageAlt: "Page de contact de Creavvy",
+  },
+  signin: {
+    title: "Connexion",
+    description:
+      "Connectez-vous à votre compte Creavvy pour créer des visuels de code et des captures d'écran stylisées.",
+    path: "/sign-in",
+    image: "/home/screen.png",
+    imageAlt: "Page de connexion de Creavvy",
   },
 };
 
@@ -55,11 +63,11 @@ export const STRUCTURED_DATA = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Creavvy",
-    url: "https://creavvy.com",
-    logo: "https://creavvy.com/home/screen.png",
+    url: "https://creavvy.laclass.dev",
+    logo: "https://creavvy.laclass.dev/home/screen.png",
     sameAs: [
       "https://twitter.com/creavvy",
-      "https://github.com/creavvy",
+      "https://github.com/bellandry/creavvy",
       "https://linkedin.com/company/creavvy",
     ],
   },
@@ -67,10 +75,10 @@ export const STRUCTURED_DATA = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Creavvy",
-    url: "https://creavvy.com",
+    url: "https://creavvy.laclass.dev",
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://creavvy.com/search?q={search_term_string}",
+      target: "https://creavvy.laclass.dev/search?q={search_term_string}",
       "query-input": "required name=search_term_string",
     },
   },

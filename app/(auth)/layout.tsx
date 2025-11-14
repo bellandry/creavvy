@@ -1,7 +1,10 @@
 import Logo from "@/components/logo";
+import { auth } from "@/lib/auth";
 import { SEO_CONFIG } from "@/lib/seo";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: {
@@ -20,11 +23,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
+
+  if (session?.user) {
+    redirect("/dashboard");
+  }
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
       <div className="w-full flex flex-col max-w-md space-y-6">
