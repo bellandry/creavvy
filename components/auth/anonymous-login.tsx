@@ -21,9 +21,8 @@ export default function AnonymousLogin() {
   return (
     <div className="w-full">
       <Button
-        size={"lg"}
         onClick={anonymousLogin}
-        className="flex-1 cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-lg h-12 px-5 bg-[#362348] hover:bg-[#4d3267] transition-colors text-white text-base font-bold leading-normal tracking-[0.015em] w-full"
+        className="flex-1 cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-lg h-10 px-5 bg-[#362348] hover:bg-[#4d3267] transition-colors text-white text-base font-bold leading-normal tracking-[0.015em] w-full"
       >
         Connexion Anonyme
       </Button>
