@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AnonymousLogin from "./anonymous-login";
 import MailSingIn from "./mail-sign-in";
 import SocialLogin from "./social-login";
 
@@ -17,6 +18,7 @@ export default function SignIn() {
 
             {/* Social Sign-in Buttons */}
             <SocialLogin />
+            <AnonymousLogin />
 
             {/* Separator */}
             <p className="text-neutral-400 text-sm font-normal leading-normal w-full text-center">
