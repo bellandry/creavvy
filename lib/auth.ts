@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { magicLink } from "better-auth/plugins";
+import { anonymous, magicLink } from "better-auth/plugins";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -14,6 +14,9 @@ export const auth = betterAuth({
         console.log("\n token :", token);
         console.log("\t url :", url);
       },
+    }),
+    anonymous({
+      emailDomainName: "example.com",
     }),
   ],
   emailAndPassword: {
