@@ -1,15 +1,15 @@
-import nodemailer from 'nodemailer';
-import { render } from '@react-email/render';
-import { MagicLinkEmail } from '../emails/templates/MagicLinkEmail';
-import { WelcomeEmail } from '../emails/templates/WelcomeEmail';
-import { NotificationEmail } from '../emails/templates/NotificationEmail';
+import { render } from "@react-email/render";
+import nodemailer from "nodemailer";
+import { MagicLinkEmail } from "../emails/templates/MagicLinkEmail";
+import { NotificationEmail } from "../emails/templates/NotificationEmail";
+import { WelcomeEmail } from "../emails/templates/WelcomeEmail";
 
 // Create a transporter using SMTP
 const createTransporter = () => {
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587', 10),
-    secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
+    host: process.env.SMTP_HOST || "smtp.gmail.com",
+    port: parseInt(process.env.SMTP_PORT || "587", 10),
+    secure: process.env.SMTP_SECURE === "true", // true for 465, false for other ports
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -24,28 +24,30 @@ export const sendMagicLinkEmail = async (
   magicLink: string
 ) => {
   const transporter = createTransporter();
-  
+
   const emailHtml = await render(
     MagicLinkEmail({
       name,
-      email,
       magicLink,
     })
   );
 
   const mailOptions = {
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    // from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    from: `"Creavvy Team" <${process.env.SMTP_USER}>`,
     to: email,
-    subject: 'Your Magic Link to Access Creavvy',
+    subject: "Your Link to Access Creavvy",
     html: emailHtml,
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions) as { messageId?: string };
-    console.log('Magic link email sent: ', info.messageId);
+    const info = (await transporter.sendMail(mailOptions)) as {
+      messageId?: string;
+    };
+    console.log("Magic link email sent: ", info.messageId);
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('Error sending magic link email:', error);
+    console.error("Error sending magic link email:", error);
     return { success: false, error };
   }
 };
@@ -56,7 +58,7 @@ export const sendWelcomeEmail = async (
   name: string | undefined
 ) => {
   const transporter = createTransporter();
-  
+
   const emailHtml = await render(
     WelcomeEmail({
       name,
@@ -67,16 +69,18 @@ export const sendWelcomeEmail = async (
   const mailOptions = {
     from: process.env.SMTP_FROM || process.env.SMTP_USER,
     to: email,
-    subject: 'Welcome to Creavvy!',
+    subject: "Welcome to Creavvy!",
     html: emailHtml,
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions) as { messageId?: string };
-    console.log('Welcome email sent: ', info.messageId);
+    const info = (await transporter.sendMail(mailOptions)) as {
+      messageId?: string;
+    };
+    console.log("Welcome email sent: ", info.messageId);
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('Error sending welcome email:', error);
+    console.error("Error sending welcome email:", error);
     return { success: false, error };
   }
 };
@@ -91,7 +95,7 @@ export const sendNotificationEmail = async (
   ctaText?: string
 ) => {
   const transporter = createTransporter();
-  
+
   const emailHtml = await render(
     NotificationEmail({
       name,
@@ -111,11 +115,13 @@ export const sendNotificationEmail = async (
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions) as { messageId?: string };
-    console.log('Notification email sent: ', info.messageId);
+    const info = (await transporter.sendMail(mailOptions)) as {
+      messageId?: string;
+    };
+    console.log("Notification email sent: ", info.messageId);
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('Error sending notification email:', error);
+    console.error("Error sending notification email:", error);
     return { success: false, error };
   }
 };

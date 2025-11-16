@@ -17,8 +17,10 @@ export default function SignIn() {
             </p>
 
             {/* Social Sign-in Buttons */}
-            <SocialLogin />
-            <AnonymousLogin />
+            <div className="flex flex-col w-full gap-3">
+              <SocialLogin />
+              <AnonymousLogin />
+            </div>
 
             {/* Separator */}
             <p className="text-neutral-400 text-sm font-normal leading-normal w-full text-center">
