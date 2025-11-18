@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { HomeDashboard } from "@/components/dashboard/home-dashboard";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -23,15 +23,8 @@ export default function DashboardPage() {
   const { user } = session;
 
   return (
-    <div className="relative flex w-full">
-      <main className="flex flex-col p-6 space-y-4 text-white px-10">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <p>Welcome, {user.name || "User"}!</p>
-        <p>Email: {user.email}</p>
-        <Button size={"xl"} onClick={() => authClient.signOut()}>
-          Sign Out
-        </Button>
-      </main>
+    <div className="w-full">
+      <HomeDashboard user={user} />
     </div>
   );
 }

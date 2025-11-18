@@ -20,11 +20,11 @@ export default async function DashboardLayout({
   const { user } = session;
 
   return (
-    <div className="relative flex min-h-screen w-full">
+    <div className="relative flex h-screen w-full">
       <Sidebar user={user} />
       <main className="h-screen flex w-full flex-col space-y-4 text-white">
         <DashboardHeader />
-        {children}
+        <div className="mx-auto max-w-7xl w-full">{children}</div>
       </main>
     </div>
   );
