@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <section className="flex flex-col gap-10 items-center text-center">
       <div className="flex flex-col gap-4 items-center">
-        <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tighter max-w-4xl">
+        <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tighter max-w-3xl">
           Transformez code et captures d&apos;écran en contenu viral.
         </h1>
         <h2 className="text-white/80 text-base sm:text-lg lg:text-xl font-normal leading-normal max-w-2xl">
@@ -21,12 +21,12 @@ const Hero = () => {
       >
         <span className="truncate">Commencer à créer gratuitement</span>
       </button>
-      <div className="relative w-full max-w-4xl aspect-video rounded-xl bg-white/5 border border-white/10 shadow-2xl shadow-primary/20 p-2">
+      <div className="relative w-full max-w-5xl aspect-video rounded-xl bg-white/5 border border-white/10 shadow-2xl shadow-primary p-2">
         <Image
           width={500}
           height={500}
           className="rounded-lg w-full h-full object-cover"
-          alt="sniper studio dashboard"
+          alt="creavvy dashboard"
           src="/home/screen.png"
         />
       </div>
