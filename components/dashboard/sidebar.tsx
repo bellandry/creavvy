@@ -141,7 +141,7 @@ function Sidebar({ user }: { user: User }) {
 
       <Button
         onClick={toggleSidebar}
-        className="ml-auto top-4 -right-10 absolute bg-primary/30 h-10 text-gray-400 hover:text-white transition-colors rounded-full"
+        className="ml-auto top-4 z-10 -right-5 absolute bg-primary h-10 text-gray-100 hover:text-white transition-colors rounded-full"
         aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         {collapsed ? <ChevronRight size={10} /> : <ChevronLeft size={10} />}

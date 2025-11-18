@@ -1,3 +1,4 @@
+import DashboardHeader from "@/components/dashboard/header";
 import Sidebar from "@/components/dashboard/sidebar";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -21,7 +22,8 @@ export default async function DashboardLayout({
   return (
     <div className="relative flex min-h-screen w-full">
       <Sidebar user={user} />
-      <main className="max-w-7xl bg-amber-200 h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white">
+      <main className="h-screen flex w-full flex-col space-y-4 text-white">
+        <DashboardHeader />
         {children}
       </main>
     </div>
