@@ -1,6 +1,7 @@
 import DashboardHeader from "@/components/dashboard/header";
 import Sidebar from "@/components/dashboard/sidebar";
 import { auth } from "@/lib/auth";
+import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -18,6 +19,25 @@ export default async function DashboardLayout({
   }
 
   const { user } = session;
+
+  // Check if user has completed onboarding
+  const dbUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: { onboardingCompleted: true },
+  });
+
+  if (!dbUser?.onboardingCompleted) {
+    redirect("/wizard");
+  }
+
+  // Check if user has at least one organization
+  const organizations = await auth.api.listOrganizations({
+    headers: await headers(),
+  });
+
+  if (!organizations || organizations.length === 0) {
+    redirect("/wizard");
+  }
 
   return (
     <div className="relative flex h-screen w-full">

@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { anonymous, magicLink } from "better-auth/plugins";
+import { anonymous, magicLink, organization } from "better-auth/plugins";
 import { sendMagicLinkEmail } from "./email";
 
 export const auth = betterAuth({
@@ -19,8 +19,9 @@ export const auth = betterAuth({
       },
     }),
     anonymous({
-      emailDomainName: "creavvy.laclass.dev",
+      emailDomainName: "creavvy.dev",
     }),
+    organization(),
   ],
   emailAndPassword: {
     enabled: true,

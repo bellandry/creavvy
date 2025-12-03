@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 type TemplateCardProps = {
   title: string;
   description: string;
@@ -16,7 +14,13 @@ export function TemplateCard({
   return (
     <div className="flex flex-col gap-3 group">
       <div className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105">
-        <Image src={imageUrl} width={100} height={100} alt={imageAlt} />
+        <img
+          src={imageUrl}
+          width={100}
+          height={100}
+          alt={imageAlt}
+          className="object-cover h-full w-full"
+        />
       </div>
       <div>
         <p className="text-white text-base font-medium leading-normal">

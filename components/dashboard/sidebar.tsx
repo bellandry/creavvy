@@ -72,7 +72,7 @@ function Sidebar({ user }: { user: User }) {
 
   return (
     <aside
-      className={`flex flex-col justify-between min-h-screen transition-all duration-300 sticky top-0 bottom-0 bg-black/30 p-4 border-r border-white/10 z-20 w-48 ${collapsed ? "hidden md:flex md:w-20" : "w-64"}`}
+      className={`flex flex-col justify-between h-screen transition-all duration-300 sticky top-0 bottom-0 bg-black/30 p-4 border-r border-white/10 z-20 w-48 ${collapsed ? "hidden md:flex md:w-20" : "w-64"}`}
     >
       <div className="flex flex-col gap-6">
         <div

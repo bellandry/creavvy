@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -15,12 +16,13 @@ const Hero = () => {
           secondes.
         </h2>
       </div>
-      <button
+      <Link
+        href={"/dashboard"}
         className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity"
         aria-label="Commencer à créer gratuitement"
       >
         <span className="truncate">Commencer à créer gratuitement</span>
-      </button>
+      </Link>
       <div className="relative w-full max-w-5xl aspect-video rounded-xl bg-white/5 border border-white/10 shadow-2xl shadow-primary p-2">
         <Image
           width={500}

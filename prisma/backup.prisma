@@ -1,0 +1,492 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+
+  sessions Session[]
+  accounts Account[]
+
+  // Collaboration
+  workspaces        WorkspaceMember[]
+  createdWorkspaces Workspace[]       @relation("CreatedWorkspaces")
+
+  // Resources (Owned or Created)
+  projects      Project[]      @relation("UserProjects")
+  templates     Template[]     @relation("UserTemplates")
+  aiGenerations AiGeneration[]
+  assets        Asset[]
+  exports       Export[]
+  settings      UserSettings?
+  apiKeys       ApiKey[]
+  activityLogs  ActivityLog[]
+
+  // Subscription is now central
+  subscription Subscription?
+
+  isAnonymous        Boolean?
+  designs            Design[]
+  designPageVersions DesignPageVersion[]
+  savedTemplates     SavedTemplate[]
+
+  @@map("user")
+}
+
+model Workspace {
+  id      String  @id @default(cuid())
+  name    String
+  slug    String  @unique
+  logoUrl String?
+
+  creatorId String
+  creator   User   @relation("CreatedWorkspaces", fields: [creatorId], references: [id])
+
+  members  WorkspaceMember[]
+  projects Project[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime? // Soft Delete
+
+  @@map("workspace")
+}
+
+model WorkspaceMember {
+  id          String        @id @default(cuid())
+  workspaceId String
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        WorkspaceRole @default(MEMBER)
+  joinedAt    DateTime      @default(now())
+
+  @@unique([workspaceId, userId])
+  @@map("workspace_member")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("account")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_token")
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+enum Plan {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum DesignType {
+  SINGLE
+  CAROUSEL
+  REEL
+  THUMBNAIL
+  OTHER
+}
+
+enum AssetType {
+  IMAGE
+  BACKGROUND
+  ICON
+  LOGO
+  UPLOAD
+}
+
+enum GenerationType {
+  CONTENT
+  BACKGROUND
+  SUGGESTION
+}
+
+enum ExportType {
+  PNG
+  WEBP
+  ZIP
+  PDF
+}
+
+model UserSettings {
+  id               String   @id @default(cuid())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String   @unique
+  theme            String   @default("light")
+  language         String   @default("en")
+  shortcutSettings Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Project {
+  id String @id @default(cuid())
+
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String
+
+  user   User   @relation("UserProjects", fields: [userId], references: [id]) // Creator
+  userId String
+
+  name        String
+  description String?
+  designs     Design[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // Soft Delete
+
+  @@index([workspaceId])
+  @@index([userId])
+}
+
+model Design {
+  id        String   @id @default(cuid())
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  name         String
+  slug         String?    @unique
+  type         DesignType @default(SINGLE)
+  ratio        String? // e.g. "1:1", "9:16"
+  formatWidth  Int?
+  formatHeight Int?
+
+  currentVersion   DesignVersion? @relation("DesignCurrentVersion", fields: [currentVersionId], references: [id])
+  currentVersionId String?        @unique
+
+  versions DesignVersion[] @relation("DesignVersions")
+
+  aiMode       Boolean @default(false)
+  thumbnailUrl String?
+
+  pages         DesignPage[]
+  aiGenerations AiGeneration[]
+  assets        Asset[]
+  exports       Export[]
+  activityLogs  ActivityLog[]
+
+  visibility String @default("PRIVATE") // PRIVATE, PUBLIC, LINK
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // Soft Delete
+
+  @@index([projectId])
+  @@index([userId])
+}
+
+model DesignPage {
+  id         String @id @default(cuid())
+  design     Design @relation(fields: [designId], references: [id], onDelete: Cascade)
+  designId   String
+  pageNumber Int
+
+  currentVersion   DesignPageVersion? @relation("DesignPageCurrentVersion", fields: [currentVersionId], references: [id])
+  currentVersionId String?            @unique
+
+  versions DesignPageVersion[] @relation("DesignPageVersions")
+  snippets Snippet[]
+  assets   Asset[]
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  aiGenerations AiGeneration[]
+  activityLogs  ActivityLog[]
+
+  @@index([designId, pageNumber])
+}
+
+model DesignPageVersion {
+  id           String     @id @default(cuid())
+  page         DesignPage @relation("DesignPageVersions", fields: [designPageId], references: [id], onDelete: Cascade)
+  designPageId String
+
+  content    Json
+  layers     Json?
+  style      Json?
+  background Json?
+  promptUsed String?
+
+  isAutoSave Boolean @default(false) // For cleanup strategy
+
+  createdBy   User?   @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdById String?
+
+  createdAt DateTime @default(now())
+
+  // Back relation for current version (optional, usually handled by unique constraint on other side)
+  currentForPage DesignPage? @relation("DesignPageCurrentVersion")
+
+  @@index([designPageId])
+}
+
+model DesignVersion {
+  id       String @id @default(cuid())
+  design   Design @relation("DesignVersions", fields: [designId], references: [id], onDelete: Cascade)
+  designId String
+
+  snapshot     Json // { pages: [{ page_id, version_id }, ...] }
+  thumbnailUrl String?
+  metadata     Json?
+
+  createdAt DateTime @default(now())
+
+  currentForDesign Design? @relation("DesignCurrentVersion")
+
+  @@index([designId])
+}
+
+model Template {
+  id     String @id @default(cuid())
+  user   User   @relation("UserTemplates", fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  name  String
+  type  DesignType @default(SINGLE)
+  ratio String?
+
+  currentVersion   TemplateVersion? @relation("TemplateCurrentVersion", fields: [currentVersionId], references: [id])
+  currentVersionId String?          @unique
+
+  versions TemplateVersion[] @relation("TemplateVersions")
+
+  pages         TemplatePage[]
+  demoThumbnail String?
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  deletedAt      DateTime? // Soft Delete
+  savedTemplates SavedTemplate[]
+
+  @@index([userId])
+}
+
+model TemplatePage {
+  id         String   @id @default(cuid())
+  template   Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  templateId String
+  pageNumber Int
+
+  currentVersion   TemplatePageVersion? @relation("TemplatePageCurrentVersion", fields: [currentVersionId], references: [id])
+  currentVersionId String?              @unique
+
+  versions  TemplatePageVersion[] @relation("TemplatePageVersions")
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+
+  @@index([templateId, pageNumber])
+}
+
+model TemplatePageVersion {
+  id             String       @id @default(cuid())
+  templatePage   TemplatePage @relation("TemplatePageVersions", fields: [templatePageId], references: [id], onDelete: Cascade)
+  templatePageId String
+
+  content    Json
+  layers     Json?
+  style      Json?
+  background Json?
+
+  createdAt DateTime @default(now())
+
+  currentForPage TemplatePage? @relation("TemplatePageCurrentVersion")
+
+  @@index([templatePageId])
+}
+
+model TemplateVersion {
+  id         String   @id @default(cuid())
+  template   Template @relation("TemplateVersions", fields: [templateId], references: [id], onDelete: Cascade)
+  templateId String
+  snapshot   Json
+  createdAt  DateTime @default(now())
+
+  currentForTemplate Template? @relation("TemplateCurrentVersion")
+
+  @@index([templateId])
+}
+
+model AiGeneration {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  design   Design? @relation(fields: [designId], references: [id], onDelete: Cascade)
+  designId String?
+
+  page   DesignPage? @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  pageId String?
+
+  type      GenerationType
+  prompt    String
+  response  Json
+  model     String
+  createdAt DateTime       @default(now())
+
+  @@index([userId])
+  @@index([designId])
+  @@index([pageId])
+}
+
+model Asset {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  design   Design? @relation(fields: [designId], references: [id], onDelete: Cascade)
+  designId String?
+
+  page   DesignPage? @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  pageId String?
+
+  type    AssetType
+  fileUrl String
+
+  // Enhanced Metadata
+  mimeType String?
+  size     Int? // in bytes
+  width    Int?
+  height   Int?
+  metadata Json?
+
+  createdAt DateTime  @default(now())
+  deletedAt DateTime? // Soft Delete
+
+  @@index([userId])
+  @@index([designId])
+  @@index([pageId])
+}
+
+model Snippet {
+  id           String     @id @default(cuid())
+  designPage   DesignPage @relation(fields: [designPageId], references: [id], onDelete: Cascade)
+  designPageId String
+  language     String
+  theme        String
+  code         String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([designPageId])
+}
+
+model SavedTemplate {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  template   Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  templateId String
+  savedAt    DateTime @default(now())
+
+  @@unique([userId, templateId])
+  @@index([userId])
+}
+
+model Export {
+  id        String     @id @default(cuid())
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  design    Design     @relation(fields: [designId], references: [id], onDelete: Cascade)
+  designId  String
+  type      ExportType
+  fileUrl   String
+  createdAt DateTime   @default(now())
+
+  @@index([userId])
+  @@index([designId])
+}
+
+model ActivityLog {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  design   Design? @relation(fields: [designId], references: [id], onDelete: Cascade)
+  designId String?
+
+  page   DesignPage? @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  pageId String?
+
+  action    String
+  payload   Json?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([designId])
+}
+
+model Subscription {
+  id          String    @id @default(cuid())
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String    @unique
+  plan        Plan      @default(FREE)
+  status      String    @default("active") // active, past_due, canceled, incomplete
+  nextBilling DateTime?
+  aiCredits   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  provider  String
+  key       String // store encrypted in production
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}

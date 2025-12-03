@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 type CreationCardProps = {
   title: string;
   date: string;
@@ -7,15 +5,22 @@ type CreationCardProps = {
   imageAlt: string;
 };
 
-export function CreationCard({ title, date, imageUrl, imageAlt }: CreationCardProps) {
+export function CreationCard({
+  title,
+  date,
+  imageUrl,
+  imageAlt,
+}: CreationCardProps) {
   return (
     <div className="flex flex-col gap-3 group">
       <div className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105">
-        <Image
+        <img
           src={imageUrl}
           width={100}
           height={100}
           alt={imageAlt}
+          className="object-cover h-full w-full"
+          loading="lazy"
         />
       </div>
       <div>
