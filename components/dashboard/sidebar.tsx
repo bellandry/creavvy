@@ -49,17 +49,17 @@ function Sidebar({ user }: { user: User }) {
       label: "Dashboard",
     },
     {
-      href: "/wizard",
+      href: "/design/new",
       icon: <PlusCircle />,
       label: "Create Visual",
     },
     {
-      href: "/creations",
+      href: "/design",
       icon: <Library />,
       label: "My Creations",
     },
     {
-      href: "/templates",
+      href: "/design/templates",
       icon: <Bookmark />,
       label: "My Templates",
     },
